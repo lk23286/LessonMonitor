@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,36 +19,36 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7YL-Jt-Afd">
-                        <rect key="frame" x="39" y="2" width="200" height="60"/>
-                        <color key="backgroundColor" red="0.94341224430000004" green="0.5971879363" blue="0.2155522406" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <rect key="frame" x="44" y="2" width="200" height="60"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="200" id="8DD-f7-2s9"/>
                             <constraint firstAttribute="height" constant="60" id="wcW-Jj-iST"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="Charter-Bold" family="Charter" pointSize="20"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" name="AccentColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WAR-RH-yEa">
                         <rect key="frame" x="249" y="2" width="120" height="60"/>
-                        <color key="backgroundColor" red="1" green="0.87308019400000003" blue="0.16682595010000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="120" id="09T-Px-Tah"/>
                             <constraint firstAttribute="height" constant="60" id="nzb-UD-s3V"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="Charter-Roman" family="Charter" pointSize="17"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" red="0.18468856810000001" green="0.5397466782" blue="0.25488072630000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="26" translatesAutoresizingMaskIntoConstraints="NO" id="W4T-ZH-sgI">
-                        <rect key="frame" x="4" y="2" width="25" height="60"/>
-                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                        <rect key="frame" x="4" y="2" width="30" height="60"/>
+                        <color key="backgroundColor" systemColor="systemBlueColor"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="25" id="HLF-BY-uXO"/>
+                            <constraint firstAttribute="width" constant="30" id="HLF-BY-uXO"/>
                             <constraint firstAttribute="height" constant="60" id="PcV-gZ-sh3"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="Charter-Bold" family="Charter" pointSize="30"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -57,7 +58,7 @@
                     <constraint firstItem="WAR-RH-yEa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="SA7-7f-Lo5"/>
                     <constraint firstAttribute="trailing" secondItem="WAR-RH-yEa" secondAttribute="trailing" constant="4" id="aUK-po-mFe"/>
                     <constraint firstAttribute="bottom" secondItem="WAR-RH-yEa" secondAttribute="bottom" constant="2" id="eS5-rF-xEf"/>
-                    <constraint firstItem="WAR-RH-yEa" firstAttribute="leading" secondItem="7YL-Jt-Afd" secondAttribute="trailing" constant="10" id="gLi-xT-RX7"/>
+                    <constraint firstItem="WAR-RH-yEa" firstAttribute="leading" secondItem="7YL-Jt-Afd" secondAttribute="trailing" constant="5" id="gLi-xT-RX7"/>
                     <constraint firstItem="W4T-ZH-sgI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="4" id="kbe-Ze-9I5"/>
                     <constraint firstItem="7YL-Jt-Afd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="lZF-uI-ZwU"/>
                     <constraint firstAttribute="bottom" secondItem="W4T-ZH-sgI" secondAttribute="bottom" constant="2" id="nS5-Md-6J3"/>
@@ -65,6 +66,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="className" destination="7YL-Jt-Afd" id="RtD-ij-y5q"/>
                 <outlet property="classNumber" destination="W4T-ZH-sgI" id="hhE-vm-Qun"/>
@@ -74,8 +76,11 @@
         </tableViewCell>
     </objects>
     <resources>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
