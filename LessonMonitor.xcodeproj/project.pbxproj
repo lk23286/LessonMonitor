@@ -9,21 +9,35 @@
 /* Begin PBXBuildFile section */
 		85034FF22AA0FC4F00B3EC30 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85034FF12AA0FC4F00B3EC30 /* AppDelegate.swift */; };
 		85034FF42AA0FC4F00B3EC30 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85034FF32AA0FC4F00B3EC30 /* SceneDelegate.swift */; };
-		85034FF62AA0FC4F00B3EC30 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85034FF52AA0FC4F00B3EC30 /* ViewController.swift */; };
 		85034FF92AA0FC4F00B3EC30 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85034FF72AA0FC4F00B3EC30 /* Main.storyboard */; };
 		85034FFB2AA0FC5400B3EC30 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85034FFA2AA0FC5400B3EC30 /* Assets.xcassets */; };
 		85034FFE2AA0FC5400B3EC30 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85034FFC2AA0FC5400B3EC30 /* LaunchScreen.storyboard */; };
+		850350062AA1FC6E00B3EC30 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850350052AA1FC6E00B3EC30 /* TableViewController.swift */; };
+		850350082AA21BC900B3EC30 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850350072AA21BC900B3EC30 /* MainVC.swift */; };
+		8503500C2AA2277200B3EC30 /* EmbeddedTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8503500B2AA2277200B3EC30 /* EmbeddedTableVC.swift */; };
+		8503500E2AA23EA700B3EC30 /* CustomCellVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8503500D2AA23EA700B3EC30 /* CustomCellVC.swift */; };
+		850350172AA242F600B3EC30 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 850350152AA242F600B3EC30 /* CustomCell.xib */; };
+		850350182AA242F600B3EC30 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850350162AA242F600B3EC30 /* CustomCell.swift */; };
+		8503501B2AA24F0300B3EC30 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8503501A2AA24F0300B3EC30 /* K.swift */; };
+		8542C1DB2AA2555F00B22C47 /* ClassRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8542C1DA2AA2555F00B22C47 /* ClassRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		85034FEE2AA0FC4F00B3EC30 /* LessonMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LessonMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85034FF12AA0FC4F00B3EC30 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		85034FF32AA0FC4F00B3EC30 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		85034FF52AA0FC4F00B3EC30 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		85034FF82AA0FC4F00B3EC30 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		85034FFA2AA0FC5400B3EC30 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		85034FFD2AA0FC5400B3EC30 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		85034FFF2AA0FC5400B3EC30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		850350052AA1FC6E00B3EC30 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		850350072AA21BC900B3EC30 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
+		8503500B2AA2277200B3EC30 /* EmbeddedTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedTableVC.swift; sourceTree = "<group>"; };
+		8503500D2AA23EA700B3EC30 /* CustomCellVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellVC.swift; sourceTree = "<group>"; };
+		850350152AA242F600B3EC30 /* CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
+		850350162AA242F600B3EC30 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		8503501A2AA24F0300B3EC30 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
+		8542C1DA2AA2555F00B22C47 /* ClassRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +70,46 @@
 		85034FF02AA0FC4F00B3EC30 /* LessonMonitor */ = {
 			isa = PBXGroup;
 			children = (
+				850350192AA24EF400B3EC30 /* Data */,
 				85034FF12AA0FC4F00B3EC30 /* AppDelegate.swift */,
 				85034FF32AA0FC4F00B3EC30 /* SceneDelegate.swift */,
-				85034FF52AA0FC4F00B3EC30 /* ViewController.swift */,
-				85034FF72AA0FC4F00B3EC30 /* Main.storyboard */,
+				850350092AA21BD300B3EC30 /* Controller */,
+				8503500A2AA21BE800B3EC30 /* View */,
 				85034FFA2AA0FC5400B3EC30 /* Assets.xcassets */,
 				85034FFC2AA0FC5400B3EC30 /* LaunchScreen.storyboard */,
 				85034FFF2AA0FC5400B3EC30 /* Info.plist */,
 			);
 			path = LessonMonitor;
+			sourceTree = "<group>";
+		};
+		850350092AA21BD300B3EC30 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				850350052AA1FC6E00B3EC30 /* TableViewController.swift */,
+				850350072AA21BC900B3EC30 /* MainVC.swift */,
+				8503500B2AA2277200B3EC30 /* EmbeddedTableVC.swift */,
+				8503500D2AA23EA700B3EC30 /* CustomCellVC.swift */,
+				850350162AA242F600B3EC30 /* CustomCell.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		8503500A2AA21BE800B3EC30 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				850350152AA242F600B3EC30 /* CustomCell.xib */,
+				85034FF72AA0FC4F00B3EC30 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		850350192AA24EF400B3EC30 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				8503501A2AA24F0300B3EC30 /* K.swift */,
+				8542C1DA2AA2555F00B22C47 /* ClassRow.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,6 +172,7 @@
 			files = (
 				85034FFE2AA0FC5400B3EC30 /* LaunchScreen.storyboard in Resources */,
 				85034FFB2AA0FC5400B3EC30 /* Assets.xcassets in Resources */,
+				850350172AA242F600B3EC30 /* CustomCell.xib in Resources */,
 				85034FF92AA0FC4F00B3EC30 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,9 +184,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				85034FF62AA0FC4F00B3EC30 /* ViewController.swift in Sources */,
 				85034FF22AA0FC4F00B3EC30 /* AppDelegate.swift in Sources */,
+				8503500E2AA23EA700B3EC30 /* CustomCellVC.swift in Sources */,
+				850350182AA242F600B3EC30 /* CustomCell.swift in Sources */,
+				8503500C2AA2277200B3EC30 /* EmbeddedTableVC.swift in Sources */,
+				850350082AA21BC900B3EC30 /* MainVC.swift in Sources */,
+				8503501B2AA24F0300B3EC30 /* K.swift in Sources */,
+				8542C1DB2AA2555F00B22C47 /* ClassRow.swift in Sources */,
 				85034FF42AA0FC4F00B3EC30 /* SceneDelegate.swift in Sources */,
+				850350062AA1FC6E00B3EC30 /* TableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,6 +342,7 @@
 				DEVELOPMENT_TEAM = 4LR58F43S2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LessonMonitor/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -318,6 +371,7 @@
 				DEVELOPMENT_TEAM = 4LR58F43S2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LessonMonitor/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
