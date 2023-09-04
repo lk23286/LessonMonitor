@@ -140,7 +140,7 @@
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oct. 9 Monday 08:35" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pYw-PT-gvU">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="timeLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pYw-PT-gvU">
                                 <rect key="frame" x="10" y="778" width="373" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="g3o-6q-U8P"/>
@@ -168,6 +168,7 @@
                     <navigationItem key="navigationItem" id="fkT-RK-CMa"/>
                     <connections>
                         <outlet property="tableView" destination="Yyr-3S-fy9" id="gH5-NR-bBK"/>
+                        <outlet property="timeLabel" destination="pYw-PT-gvU" id="CbM-K1-gqB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6vc-Zp-qej" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

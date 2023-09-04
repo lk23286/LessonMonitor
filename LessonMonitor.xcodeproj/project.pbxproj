@@ -20,6 +20,7 @@
 		850350182AA242F600B3EC30 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850350162AA242F600B3EC30 /* CustomCell.swift */; };
 		8503501B2AA24F0300B3EC30 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8503501A2AA24F0300B3EC30 /* K.swift */; };
 		8542C1DB2AA2555F00B22C47 /* ClassRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8542C1DA2AA2555F00B22C47 /* ClassRow.swift */; };
+		8542C1DD2AA392C300B22C47 /* ColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8542C1DC2AA392C200B22C47 /* ColorScheme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		850350162AA242F600B3EC30 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		8503501A2AA24F0300B3EC30 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		8542C1DA2AA2555F00B22C47 /* ClassRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassRow.swift; sourceTree = "<group>"; };
+		8542C1DC2AA392C200B22C47 /* ColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorScheme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 			children = (
 				8503501A2AA24F0300B3EC30 /* K.swift */,
 				8542C1DA2AA2555F00B22C47 /* ClassRow.swift */,
+				8542C1DC2AA392C200B22C47 /* ColorScheme.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 				8503500C2AA2277200B3EC30 /* EmbeddedTableVC.swift in Sources */,
 				850350082AA21BC900B3EC30 /* MainVC.swift in Sources */,
 				8503501B2AA24F0300B3EC30 /* K.swift in Sources */,
+				8542C1DD2AA392C300B22C47 /* ColorScheme.swift in Sources */,
 				8542C1DB2AA2555F00B22C47 /* ClassRow.swift in Sources */,
 				85034FF42AA0FC4F00B3EC30 /* SceneDelegate.swift in Sources */,
 				850350062AA1FC6E00B3EC30 /* TableViewController.swift in Sources */,
