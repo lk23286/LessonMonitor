@@ -8,9 +8,10 @@
 import Foundation
 
 struct ClassRow {
-    
     var classNumber = ""
     var className = ""
     var classTime = ""
     
 }
+
+

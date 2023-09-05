@@ -16,7 +16,8 @@ class CustomCellVC: UIViewController {
     var timer: Timer?
     
     var timeTable = K.TimeTable
-    var timeTableColors = K.TimeTableColors
+    // var timeTableColors = K.TimeTableColors
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +51,7 @@ extension CustomCellVC {
     @objc func updateTimer() {
        let dateFormatter = DateFormatter()
         
-        dateFormatter.dateFormat = "HH:mm:ss"
+        dateFormatter.dateFormat = "MMM d. EEEE HH:mm:ss"
         let timeString = dateFormatter.string(from: Date())
         
         timeLabel.text = timeString
@@ -62,14 +63,18 @@ extension CustomCellVC {
 //MARK: - Table
 extension CustomCellVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return timeTable.count
+        return timeTable[0].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let rowOfTimeTable =  timeTable[indexPath.row]
+        let rowOfTimeTable =  timeTable[1][indexPath.row]
         
-        let rowColor = timeTableColors[indexPath.row]
+        //let rowColor = timeTableColors[indexPath.row]
+        
+        
+        
+        let rowColor = K.ColorMatch[K.ColorMatchKey.actual]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! CustomCell
         
@@ -78,15 +83,20 @@ extension CustomCellVC: UITableViewDataSource {
         cell.classTime.text = rowOfTimeTable.classTime
         
        // set color of cell
-        cell.classNumber.backgroundColor = rowColor.numberBackgroundColor
-        cell.classNumber.textColor = rowColor.numberTextColor
         
-        cell.className.textColor = rowColor.nameTextColor
         
-        cell.classTime.textColor = rowColor.timeTextColor
+        
+        cell.classNumber.backgroundColor = rowColor?.numberBackgroundColor
+        cell.classNumber.textColor = rowColor?.numberTextColor
+        
+        cell.className.textColor = rowColor?.nameTextColor
+        
+        cell.classTime.textColor = rowColor?.timeTextColor
   
         return cell
     }
 
+    
+    
     
 }
