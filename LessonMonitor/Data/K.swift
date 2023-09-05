@@ -15,7 +15,7 @@ struct K {
     static let TimeTable: [[ClassRow]] = [
     // Monday
     [
-    ClassRow(classNumber: "1", className: "8.A. 1.cs", classTime: "08:00 - 08:45"),
+    ClassRow(classNumber: "1", className: "Monday", classTime: "08:00 - 08:45"),
     ClassRow(classNumber: "2", className: "9.A. 1.cs", classTime: "08:55 - 09:30"),
     ClassRow(classNumber: "3", className: "10.A. 1.cs", classTime: "10:15 - 08:45"),
     ClassRow(classNumber: "4", className: "11.A. 1.cs", classTime: "08:55 - 09:30"),
@@ -27,7 +27,7 @@ struct K {
     ],
     // Tuesday
     [
-    ClassRow(classNumber: "1", className: "10.A. 1.cs", classTime: "08:00 - 08:45"),
+    ClassRow(classNumber: "1", className: "Tuesday", classTime: "08:00 - 08:45"),
     ClassRow(classNumber: "2", className: "10.A. 1.cs", classTime: "08:55 - 09:30"),
     ClassRow(classNumber: "3", className: "10.A. 1.cs", classTime: "10:15 - 08:45"),
     ClassRow(classNumber: "4", className: "10.A. 1.cs", classTime: "08:55 - 09:30"),
@@ -39,7 +39,7 @@ struct K {
     ],
     // Wednesday
     [
-    ClassRow(classNumber: "1", className: "8.A. 1.cs", classTime: "08:00 - 08:45"),
+    ClassRow(classNumber: "1", className: "Wednesday", classTime: "08:00 - 08:45"),
     ClassRow(classNumber: "2", className: "9.A. 1.cs", classTime: "08:55 - 09:30"),
     ClassRow(classNumber: "3", className: "10.A. 1.cs", classTime: "10:15 - 08:45"),
     ClassRow(classNumber: "4", className: "11.A. 1.cs", classTime: "08:55 - 09:30"),
@@ -51,7 +51,7 @@ struct K {
     ],
     // Thursday
     [
-    ClassRow(classNumber: "1", className: "8.A. 1.cs", classTime: "08:00 - 08:45"),
+    ClassRow(classNumber: "1", className: "Thurstay", classTime: "08:00 - 08:45"),
     ClassRow(classNumber: "2", className: "9.A. 1.cs", classTime: "08:55 - 09:30"),
     ClassRow(classNumber: "3", className: "10.A. 1.cs", classTime: "10:15 - 08:45"),
     ClassRow(classNumber: "4", className: "11.A. 1.cs", classTime: "08:55 - 09:30"),
@@ -63,7 +63,7 @@ struct K {
     ],
     // Friday
     [
-    ClassRow(classNumber: "1", className: "8.A. 1.cs", classTime: "08:00 - 08:45"),
+    ClassRow(classNumber: "1", className: "Friday", classTime: "08:00 - 08:45"),
     ClassRow(classNumber: "2", className: "9.A. 1.cs", classTime: "08:55 - 09:30"),
     ClassRow(classNumber: "3", className: "10.A. 1.cs", classTime: "10:15 - 08:45"),
     ClassRow(classNumber: "4", className: "11.A. 1.cs", classTime: "08:55 - 09:30"),
@@ -77,18 +77,18 @@ struct K {
    
    
     
-//    static let TimeTableColors: [ColorScheme] = [
-//        ColorScheme(numberTextColor: .lightGray, numberBackgroundColor: .darkGray, nameTextColor: .lightGray, timeTextColor: .lightGray),
-//        ColorScheme(numberTextColor: .lightGray, numberBackgroundColor: .darkGray, nameTextColor: .lightGray, timeTextColor: .lightGray),
-//        ColorScheme(numberTextColor: .black, numberBackgroundColor: .green, nameTextColor: .white, timeTextColor: .green),
-//        ColorScheme(numberTextColor: .black, numberBackgroundColor: .cyan, nameTextColor: .cyan, timeTextColor: .green),
-//        ColorScheme(numberTextColor: .black, numberBackgroundColor: .cyan, nameTextColor: .cyan, timeTextColor: .green),
-//        ColorScheme(numberTextColor: .black, numberBackgroundColor: .cyan, nameTextColor: .cyan, timeTextColor: .green),
-//        ColorScheme(numberTextColor: .black, numberBackgroundColor: .white, nameTextColor: .black, timeTextColor: .lightGray),
-//        ColorScheme(numberTextColor: .black, numberBackgroundColor: .cyan, nameTextColor: .cyan, timeTextColor: .green),
-//        ColorScheme(numberTextColor: .black, numberBackgroundColor: .white, nameTextColor: .black, timeTextColor: .lightGray),
-//        ColorScheme(numberTextColor: .black, numberBackgroundColor: .cyan, nameTextColor: .cyan, timeTextColor: .green)
-//        ]
+    static let TimeTableColors: [ColorScheme] = [
+        ColorScheme(numberTextColor: .lightGray, numberBackgroundColor: .darkGray, nameTextColor: .lightGray, timeTextColor: .lightGray),
+        ColorScheme(numberTextColor: .lightGray, numberBackgroundColor: .darkGray, nameTextColor: .lightGray, timeTextColor: .lightGray),
+        ColorScheme(numberTextColor: .black, numberBackgroundColor: .green, nameTextColor: .white, timeTextColor: .green),
+        ColorScheme(numberTextColor: .black, numberBackgroundColor: .cyan, nameTextColor: .cyan, timeTextColor: .green),
+        ColorScheme(numberTextColor: .black, numberBackgroundColor: .cyan, nameTextColor: .cyan, timeTextColor: .green),
+        ColorScheme(numberTextColor: .black, numberBackgroundColor: .cyan, nameTextColor: .cyan, timeTextColor: .green),
+        ColorScheme(numberTextColor: .black, numberBackgroundColor: .white, nameTextColor: .black, timeTextColor: .lightGray),
+        ColorScheme(numberTextColor: .black, numberBackgroundColor: .cyan, nameTextColor: .cyan, timeTextColor: .green),
+        ColorScheme(numberTextColor: .black, numberBackgroundColor: .white, nameTextColor: .black, timeTextColor: .lightGray),
+        ColorScheme(numberTextColor: .black, numberBackgroundColor: .cyan, nameTextColor: .cyan, timeTextColor: .green)
+        ]
     
     struct ColorMatchKey {
         static let passed = "passed"

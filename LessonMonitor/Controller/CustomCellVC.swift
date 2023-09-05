@@ -15,12 +15,21 @@ class CustomCellVC: UIViewController {
     
     var timer: Timer?
     
+    var dayOfWeekString: String = ""
+    
     var timeTable = K.TimeTable
-    // var timeTableColors = K.TimeTableColors
+    
+    var timeTableColors = K.TimeTableColors
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d. EEEE HH:mm"
+        let timeString = dateFormatter.string(from: Date())
+    
+        timeLabel.text = timeString
         
         startTimer()
         
@@ -39,7 +48,7 @@ class CustomCellVC: UIViewController {
 extension CustomCellVC {
 
     func startTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
     
     func stopTimer() {
@@ -51,13 +60,21 @@ extension CustomCellVC {
     @objc func updateTimer() {
        let dateFormatter = DateFormatter()
         
-        dateFormatter.dateFormat = "MMM d. EEEE HH:mm:ss"
+        dateFormatter.dateFormat = "MMM d. EEEE HH:mm"
         let timeString = dateFormatter.string(from: Date())
         
+        dateFormatter.dateFormat = "EE"
+        dayOfWeekString = dateFormatter.string(from: Date())
+        
+        dateFormatter.dateFormat = "HH:mm"
+        let hourMinute = dateFormatter.string(from: Date())
+        // updateTimeTableColors()
+        
         timeLabel.text = timeString
+        
+        tableView.reloadData()
     }
    
-    
 }
 
 //MARK: - Table
@@ -68,13 +85,14 @@ extension CustomCellVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let rowOfTimeTable =  timeTable[1][indexPath.row]
+        let dayOfTimeTable = dayOfWeekNumber(from: dayOfWeekString)
         
-        //let rowColor = timeTableColors[indexPath.row]
+        let rowOfTimeTable =  timeTable[dayOfTimeTable][indexPath.row]
+        
+        let rowColor = timeTableColors[indexPath.row]
         
         
-        
-        let rowColor = K.ColorMatch[K.ColorMatchKey.actual]
+       // let rowColor = K.ColorMatch[K.ColorMatchKey.actual]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! CustomCell
         
@@ -84,19 +102,26 @@ extension CustomCellVC: UITableViewDataSource {
         
        // set color of cell
         
+        cell.classNumber.backgroundColor = rowColor.numberBackgroundColor
+        cell.classNumber.textColor = rowColor.numberTextColor
         
+        cell.className.textColor = rowColor.nameTextColor
         
-        cell.classNumber.backgroundColor = rowColor?.numberBackgroundColor
-        cell.classNumber.textColor = rowColor?.numberTextColor
-        
-        cell.className.textColor = rowColor?.nameTextColor
-        
-        cell.classTime.textColor = rowColor?.timeTextColor
+        cell.classTime.textColor = rowColor.timeTextColor
   
         return cell
     }
-
-    
-    
+  
+    func dayOfWeekNumber(from dayString: String) -> Int {
+        switch dayString {
+        
+        case "Tue": return 2
+        
+        default: return 0
+        }
+    }
+  
     
 }
+
+
