@@ -7,11 +7,16 @@
 
 import UIKit
 
-class CustomCellVC: UIViewController {
+import AVFAudio
 
+
+class CustomCellVC: UIViewController {
+    
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var timeLabel: UILabel!
+    
+    @IBOutlet weak var remainingLabel: UILabel!
     
     var timer: Timer?
     
@@ -22,29 +27,37 @@ class CustomCellVC: UIViewController {
     
     var colorTable = K.colorTableExample
     
-
+    var remainingTime = RemainingTime()
+    
+    var audioPlayer: AVAudioPlayer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.dataSource = self
-
+        
         tableView.register( UINib(nibName: K.cellNibName , bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
         
-// initiate time on the bottom label
+        // initiate time on the bottom label
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM d. EEEE HH:mm"
         let timeString = dateFormatter.string(from: Date())
-    
+        
         timeLabel.text = timeString
         
-// initiate working day in number for the table
+        // initiate working day in number for the table
         
         dateFormatter.dateFormat = "EEEE"
         let dayString = dateFormatter.string(from: Date())
         workingDayinNumber = makeDayNumber(from: dayString)
         
         startTimer()
+        
+        remainingLabel.text = remainingTime.text
+        remainingLabel.textColor = remainingTime.TextColor
+        remainingLabel.backgroundColor = remainingTime.BkgColor
+        
     }
     
     deinit {
@@ -56,7 +69,7 @@ class CustomCellVC: UIViewController {
 //MARK: - Timer
 
 extension CustomCellVC {
-
+    
     func startTimer() {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
@@ -66,29 +79,29 @@ extension CustomCellVC {
         
         timer = nil
     }
-
-// Do the action when the time comes
+    
+    // Do the action when the time comes
     
     @objc func updateTimer() {
-       let dateFormatter = DateFormatter()
-       
-    // Display the day and time at the bottom label
+        let dateFormatter = DateFormatter()
+        
+        // Display the day and time at the bottom label
         dateFormatter.dateFormat = "MMM d. EEEE HH:mm:ss"
         let timeString = dateFormatter.string(from: Date())
         
         timeLabel.text = timeString
         
-    // Set the day
+        // Set the day
         dateFormatter.dateFormat = "EEEE"
         let dayString = dateFormatter.string(from: Date())
         workingDayinNumber = makeDayNumber(from: dayString)
-    
-    // Refresh the ColorTable
-     //   dateFormatter.dateFormat = "HH:mm"
+        
+        // Refresh the ColorTable
+        //   dateFormatter.dateFormat = "HH:mm"
         
         tableView.reloadData()
     }
-   
+    
 }
 
 //MARK: - Table
@@ -116,13 +129,10 @@ extension CustomCellVC: UITableViewDataSource {
         cell.className.text = timeTableRow.className
         cell.classTime.text = timeTableRow.classTime
         
-// set color of cell
+        // set color of cell
         
         let rowStatus = rowStatusIdentifier(at: timeTableRow)
-        
-        print("rowStatus: \(rowStatus) timeTableIndex: \(timeTableIndex) timeTableRow: \(timeTableRow)")
-        
-        
+               
         if let rowColor = K.ColorMatch[rowStatus] {
             cell.classNumber.backgroundColor = rowColor.numberBackgroundColor
             cell.classNumber.textColor = rowColor.numberTextColor
@@ -131,8 +141,13 @@ extension CustomCellVC: UITableViewDataSource {
             
             cell.classTime.textColor = rowColor.timeTextColor
         }
-
-  
+        
+        remainingLabel.text = remainingTime.text
+        remainingLabel.backgroundColor = remainingTime.BkgColor
+        remainingLabel.textColor = remainingTime.TextColor
+        
+        
+        
         return cell
     }
 }
@@ -140,7 +155,7 @@ extension CustomCellVC: UITableViewDataSource {
 //MARK: - Utilities
 
 extension CustomCellVC {
-   
+    
     func makeDayNumber(from dayString: String) -> Int {
         
         print("dayString \(dayString)")
@@ -156,52 +171,114 @@ extension CustomCellVC {
     }
     
     func rowStatusIdentifier(at row: ClassRow) ->  String {
-        // check row
-
-            var status = ""
-            
-            let now = Date()
         
+        var status = ""
+        
+        let startString = String(row.classTime.prefix(5))
+        
+        let endString = String(row.classTime.suffix(5))
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "HH:mm"
+        
+        
+        if let startDate = dateFormatter.date(from: startString), let endDate = dateFormatter.date(from: endString)  {
             
-            let startString = String(row.classTime.prefix(5))
+            // correct the now to have a date part identitacal to the startDate and stopDate (2000.01.01...)
             
-            let endString = String(row.classTime.suffix(5))
-      
-            let dateFormatter = DateFormatter()
+            let rawNowString = dateFormatter.string(from: Date())
+            let now = dateFormatter.date(from: rawNowString) ?? Date()
             
-            dateFormatter.dateFormat = "HH:mm"
             
-            if let startDate = dateFormatter.date(from: startString), let endDate = dateFormatter.date(from: endString)  {
-               
-                // correct the now to have a date part identitacal to the startDate and stopDate (2000.01.01...)
-                let rawNow = Data()
-                let rawNowString = dateFormatter.string(from: Date())
-                let now = dateFormatter.date(from: rawNowString) ?? Date()
-                
-                
-    print("rowFunc: now: \(now) start: \(startDate), end: \(endDate) ")
-                
-                
-                if startDate <= now {
-                    if now <= endDate {
-                        status =  K.RowStatus.actual
-                    } else {
-                        status = K.RowStatus.future
+// print("rowFunc: now: \(now) start: \(startDate), end: \(endDate) ")
+            
+            if startDate <= now {
+                if now < endDate {
+                    status =  K.RowStatus.actual
+                    //RemainingMinute = subtractTwoTimes(endDate - now) -> Int
+                    remainingTime.counter =  subtractsTwoTimes(endDate, minus: now)
+                    
+                    
+                    switch remainingTime.counter {
+                    case let x where x > 10 :
+                        remainingTime.BkgColor = .green
+                        remainingTime.TextColor = .black
+                        remainingTime.text = String(remainingTime.counter)
+                        
+                    case 6...10:
+                        remainingTime.BkgColor = .orange
+                        remainingTime.TextColor = .black
+                        remainingTime.text = String(remainingTime.counter)
+                        if remainingTime.counter == 10  {
+                            playSound("A")
+                        }
+                    case 0...5:
+                        remainingTime.BkgColor = .red
+                        remainingTime.TextColor = .black
+                        remainingTime.text = String(remainingTime.counter)
+                        if remainingTime.counter == 5 {
+                            playSound("B")
+                        }
+                        if remainingTime.counter == 1 {
+                            playSound("C")
+                        }
+                    default:
+                        remainingTime.BkgColor = .white
+                        remainingTime.TextColor = .black
+                        remainingTime.text = String(remainingTime.counter)
+                        
                     }
+                    
                 } else {
                     status = K.RowStatus.passed
+//                    remainingTimeBackgroundColor = .white
+//                    remainingTimeTextColor = .black
+//                    remainingTimeLabel = "BREAK"
                 }
             } else {
-                status = K.RowStatus.empty
+                status = K.RowStatus.future
+//                remainingTimeBackgroundColor = .white
+//                remainingTimeTextColor = .black
+//                remainingTimeLabel = "BREAK"
             }
-        
-        
-        print(" rowFunc: row \(row.classTime) startString: \(startString) endString: \(endString) status \(status) ")
-         
-        
+        } else {
+            status = K.RowStatus.empty
+//            remainingTimeBackgroundColor = .white
+//            remainingTimeTextColor = .black
+//            remainingTimeLabel = "BREAK"
+        }
+     
+//print(" rowFunc: row \(row.classTime) startString: \(startString) endString: \(endString) status \(status) minutes: \(RemainingClassMinutes) ")
+             
         return status
-          
+        
     }
+    
+    func subtractsTwoTimes(_ timeA: Date, minus timeB: Date) -> Int {
+       
+        let timeDifference = timeA.timeIntervalSince(timeB)
+        let minutes = Int((timeDifference.truncatingRemainder(dividingBy: 3600)) / 60)
+        
+        
+        return minutes
+    }
+    
+    func playSound(_ sound: String) {
+        
+        if let soundURL = Bundle.main.url(forResource: sound, withExtension: "wav") {
+            do {
+               audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+                audioPlayer?.play()
+            }
+            catch {
+                print("error playing sound: \(error.localizedDescription)")
+            }
+        } else {
+            print("Sound file not found")
+        }
+    }
+    
     
 }
 

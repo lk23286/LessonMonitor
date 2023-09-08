@@ -79,11 +79,11 @@ struct K {
     ClassRow(classNumber: "2", className: "9.A. 1.cs", classTime: "08:55 - 09:30"),
     ClassRow(classNumber: "3", className: "10.A. 1.cs", classTime: "09:40 - 10:25"),
     ClassRow(classNumber: "4", className: "11.A. 1.cs", classTime: "10:35 - 11:20"),
-    ClassRow(classNumber: "5", className: "8.A. 1.cs", classTime: "11:30 - 12:15"),
-    ClassRow(classNumber: "6", className: "9.A. 1.cs", classTime: "12:25 - 13:05"),
+    ClassRow(classNumber: "5", className: "8.A. 1.cs", classTime: "17:00 - 17:32"),
+    ClassRow(classNumber: "6", className: "9.A. 1.cs", classTime: "18:55 - 19:40"),
     ClassRow(classNumber: "7", className: "", classTime: ""),
     ClassRow(classNumber: "8", className: "", classTime: ""),
-    ClassRow(classNumber: "9", className: "11.A. 1.cs", classTime: "15:15 - 16:00")
+    ClassRow(classNumber: "9", className: "11.A. 1.cs", classTime: "21:15 - 22:00")
     ]
     
     
@@ -118,5 +118,7 @@ struct K {
         "future" : ColorScheme(numberTextColor: .black, numberBackgroundColor: .cyan, nameTextColor: .cyan, timeTextColor: .green),
         "empty" : ColorScheme(numberTextColor: .black, numberBackgroundColor: .white, nameTextColor: .black, timeTextColor: .lightGray)
     ]
-        
+   
+    static let RemainingTimeDefault = RemainingTime(text: "", TextColor: .black, BkgColor: .black)
+    
 }
