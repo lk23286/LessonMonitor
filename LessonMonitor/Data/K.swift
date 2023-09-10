@@ -103,8 +103,8 @@ struct K {
             ClassRow(classNumber: "3", className: "10.A. 1.cs", classTime: "15:40 - 16:25"),
             ClassRow(classNumber: "4", className: "11.A. 1.cs", classTime: "16:35 - 17:20"),
             ClassRow(classNumber: "5", className: "8.A. 1.cs", classTime: "17:30 - 18:15"),
-            ClassRow(classNumber: "6", className: "9.A. 1.cs", classTime: "18:25 - 19:10"),
-            ClassRow(classNumber: "7", className: "", classTime: ""),
+            ClassRow(classNumber: "6", className: "9.A. 1.cs", classTime: "18:25 - 18:56"),
+            ClassRow(classNumber: "7", className: "10.A 1.cs", classTime: "20:10 - 20:55"),
             ClassRow(classNumber: "8", className: "", classTime: ""),
             ClassRow(classNumber: "9", className: "11.A. 1.cs", classTime: "21:15 - 22:00")
         ]

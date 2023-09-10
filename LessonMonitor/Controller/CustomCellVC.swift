@@ -28,9 +28,7 @@ class CustomCellVC: UIViewController {
     var audioPlayer: AVAudioPlayer?
     
     
-    
-    
-    var lastClassEndTime = ""
+    var storedActualClassEndTime: Date?
     
     var isActualClass: Bool = false
     
@@ -194,8 +192,10 @@ extension CustomCellVC {
     
 // Determines what color the row should be now
     
+    // dailyTimeTableState (at rowNumber: Int) -> String (RowStatus.actual ...)
+    
     func dailyTimeTableColor(at rowNumber: Int) ->  ColorScheme {
-        
+
      // Row text is defined based on the rowNumber
         
         let rowText =  timeTable[forToday()][rowNumber]
@@ -213,12 +213,18 @@ extension CustomCellVC {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         
-        if let classStartTime = dateFormatter.date(from: classStartTimeStr), let classEndTime = dateFormatter.date(from: classEndTimeStr)  {
-            
+        
         // correct the now to have a date part identitacal to the startDate and stopDate (2000.01.01...)
             
             let rawNowString = dateFormatter.string(from: Date())
             let now = dateFormatter.date(from: rawNowString) ?? Date()
+        
+        
+        
+        if let classStartTime = dateFormatter.date(from: classStartTimeStr), let classEndTime = dateFormatter.date(from: classEndTimeStr)  {
+            
+           
+           // Actula class
             
             if classStartTime <= now {
                 if now < classEndTime {
@@ -228,18 +234,26 @@ extension CustomCellVC {
                     
                     isActualClass = true
                     
+                    storedActualClassEndTime = classEndTime
+               
+            // Passed class
+                    
                 } else {
                     status = K.RowStatus.passed
-                    
-                    calculateRemainingTime(classEndTime: classEndTime, now: now)
                 }
             } else {
                 status = K.RowStatus.future
             }
+            
         } else {
             status = K.RowStatus.empty
         }
        
+        
+        
+        let breakClassEndTime = storedActualClassEndTime ?? now
+        calculateRemainingTime(classEndTime: breakClassEndTime, now: now)
+        
          let rowColor = K.ColorMatch[status]!
  
             return rowColor
@@ -279,9 +293,7 @@ extension CustomCellVC {
         
         let remainingTime =  subtractsTwoTimes(classEndTime, minus: now)
         
-print("classEndTime: \(classEndTime)")
-print("now: \(now)")
-print("remainingTime: \(remainingTime)")
+
         
         if remainingTime > 0 {
             
@@ -321,7 +333,12 @@ print("remainingTime: \(remainingTime)")
         
     // after the class ( Break time )
         
-        else if noClass &&  {
+        else if !isActualClass  {
+            
+            print("classEndTime: \(classEndTime)")
+            print("now: \(now)")
+            print("remainingTime: \(remainingTime)")
+            
             
             label.counter = remainingTime * -1
             label.BkgColor = .white
