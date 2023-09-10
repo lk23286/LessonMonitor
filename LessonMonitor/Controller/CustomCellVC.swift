@@ -9,7 +9,6 @@ import UIKit
 
 import AVFAudio
 
-
 class CustomCellVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
@@ -20,16 +19,25 @@ class CustomCellVC: UIViewController {
     
     var timer: Timer?
     
-    //var dayString: String = ""
-    var workingDayinNumber: Int = 0
-    
     var timeTable = K.timeTable
     
-    var colorTable = K.colorTableExample
+   // var colorTable = K.colorTableExample
     
-    var remainingTime = RemainingTime()
+    var label = Label()
     
     var audioPlayer: AVAudioPlayer?
+    
+    
+    
+    
+    var lastClassEndTime = ""
+    
+    var isActualClass: Bool = false
+    
+    
+    
+    
+// Set parameters before the screen appears
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,31 +46,28 @@ class CustomCellVC: UIViewController {
         
         tableView.register( UINib(nibName: K.cellNibName , bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
         
-        // initiate time on the bottom label
+        // initiate bottom label ( date )
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM d. EEEE HH:mm"
         let timeString = dateFormatter.string(from: Date())
-        
+
         timeLabel.text = timeString
-        
-        // initiate working day in number for the table
-        
-        dateFormatter.dateFormat = "EEEE"
-        let dayString = dateFormatter.string(from: Date())
-        workingDayinNumber = makeDayNumber(from: dayString)
         
         startTimer()
         
-        remainingLabel.text = remainingTime.text
-        remainingLabel.textColor = remainingTime.TextColor
-        remainingLabel.backgroundColor = remainingTime.BkgColor
+        // initiate up label (remaining time)
+    
+        remainingLabel.text = label.text
+        remainingLabel.textColor = label.TextColor
+        remainingLabel.backgroundColor = label.BkgColor
         
     }
     
     deinit {
         stopTimer()
     }
+ 
     
 }
 
@@ -83,21 +88,24 @@ extension CustomCellVC {
     // Do the action when the time comes
     
     @objc func updateTimer() {
-        let dateFormatter = DateFormatter()
         
-        // Display the day and time at the bottom label
+        // Refresh up label( remaining time )
+       
+            remainingLabel.text = label.text
+            remainingLabel.backgroundColor = label.BkgColor
+            remainingLabel.textColor = label.TextColor
+            
+        
+        // Refresh bottom label ( date )
+        
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM d. EEEE HH:mm:ss"
         let timeString = dateFormatter.string(from: Date())
-        
         timeLabel.text = timeString
         
-        // Set the day
-        dateFormatter.dateFormat = "EEEE"
-        let dayString = dateFormatter.string(from: Date())
-        workingDayinNumber = makeDayNumber(from: dayString)
+        // Refresh the time table
         
-        // Refresh the ColorTable
-        //   dateFormatter.dateFormat = "HH:mm"
+        isActualClass = false
         
         tableView.reloadData()
     }
@@ -107,46 +115,52 @@ extension CustomCellVC {
 //MARK: - Table
 
 extension CustomCellVC: UITableViewDataSource {
+    
+    // set the lenght of the Table
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return timeTable[0].count
     }
+   
+// Set the actual cell of the table
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        //let dayOfWeek = makeDayNumber(from: dayString)
+    // Row number definition
         
-        let timeTableIndex = indexPath.row
+        let rowNumber = indexPath.row
         
-        let timeTableRow =  timeTable[workingDayinNumber][timeTableIndex]
+    // Time Table definition for the day from the weekly time table
         
-        // let rowColor = colorTable[indexPath.row]
+        let dailyTimeTable = timeTable[forToday()]
         
-        //let rowColor = K.ColorMatch[K.ColorMatchKey.actual] ?? ColorScheme(numberTextColor: .black, numberBackgroundColor: .blue, nameTextColor: .white, timeTextColor: .brown)
+    // Row definition from the daily TimeTable
+        
+        let timeTableRowText =  dailyTimeTable[rowNumber]
+        
+    // Row colors definintion based on the TimeTable and the actual time ( now )
+        
+         let timeTableRowColor = dailyTimeTableColor(at: rowNumber)
+      
+     // Define cell
         
         let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! CustomCell
+                
+    // Set the Text of the Cell based on the row of the row of the daily time table
         
-        cell.classNumber.text = timeTableRow.classNumber
-        cell.className.text = timeTableRow.className
-        cell.classTime.text = timeTableRow.classTime
+        cell.classNumber.text = timeTableRowText.classNumber
+        cell.className.text = timeTableRowText.className
+        cell.classTime.text = timeTableRowText.classTime
         
-        // set color of cell
-        
-        let rowStatus = rowStatusIdentifier(at: timeTableRow)
-               
-        if let rowColor = K.ColorMatch[rowStatus] {
-            cell.classNumber.backgroundColor = rowColor.numberBackgroundColor
-            cell.classNumber.textColor = rowColor.numberTextColor
+
+    // Set the Color of the Cell based on the colors of the row colors
+      
+        cell.classNumber.backgroundColor = timeTableRowColor.numberBackgroundColor
+        cell.classNumber.textColor = timeTableRowColor.numberTextColor
             
-            cell.className.textColor = rowColor.nameTextColor
+        cell.className.textColor = timeTableRowColor.nameTextColor
             
-            cell.classTime.textColor = rowColor.timeTextColor
-        }
-        
-        remainingLabel.text = remainingTime.text
-        remainingLabel.backgroundColor = remainingTime.BkgColor
-        remainingLabel.textColor = remainingTime.TextColor
-        
-        
+        cell.classTime.textColor = timeTableRowColor.timeTextColor
         
         return cell
     }
@@ -156,9 +170,15 @@ extension CustomCellVC: UITableViewDataSource {
 
 extension CustomCellVC {
     
-    func makeDayNumber(from dayString: String) -> Int {
+// Creates a number for what week it is now ( for today)
+    
+    func forToday() -> Int {
         
-        print("dayString \(dayString)")
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "EEEE"
+        let dayString = dateFormatter.string(from: Date())
+        
         
         switch dayString {
         case "Monday": return 1
@@ -166,94 +186,66 @@ extension CustomCellVC {
         case "Wednesday": return 3
         case "Thursday": return 4
         case "Friday": return 5
+        case "Saturday": return 6
+        case "Sunday": return 7
         default: return 0
         }
     }
     
-    func rowStatusIdentifier(at row: ClassRow) ->  String {
+// Determines what color the row should be now
+    
+    func dailyTimeTableColor(at rowNumber: Int) ->  ColorScheme {
+        
+     // Row text is defined based on the rowNumber
+        
+        let rowText =  timeTable[forToday()][rowNumber]
         
         var status = ""
         
-        let startString = String(row.classTime.prefix(5))
+    // cut the start time and end time of the class from ClassTime field. Example "12:00 - 12:45" -> "12:00" and "12:45"
         
-        let endString = String(row.classTime.suffix(5))
+        let classStartTimeStr = String(rowText.classTime.prefix(5))
+        let classEndTimeStr = String(rowText.classTime.suffix(5))
+        
+        
+     // ClassStartTime and ClassEndTime  were created in Date format from String format to be compatible with the now()
         
         let dateFormatter = DateFormatter()
-        
         dateFormatter.dateFormat = "HH:mm"
         
-        
-        if let startDate = dateFormatter.date(from: startString), let endDate = dateFormatter.date(from: endString)  {
+        if let classStartTime = dateFormatter.date(from: classStartTimeStr), let classEndTime = dateFormatter.date(from: classEndTimeStr)  {
             
-            // correct the now to have a date part identitacal to the startDate and stopDate (2000.01.01...)
+        // correct the now to have a date part identitacal to the startDate and stopDate (2000.01.01...)
             
             let rawNowString = dateFormatter.string(from: Date())
             let now = dateFormatter.date(from: rawNowString) ?? Date()
             
-            
-// print("rowFunc: now: \(now) start: \(startDate), end: \(endDate) ")
-            
-            if startDate <= now {
-                if now < endDate {
+            if classStartTime <= now {
+                if now < classEndTime {
                     status =  K.RowStatus.actual
-                    //RemainingMinute = subtractTwoTimes(endDate - now) -> Int
-                    remainingTime.counter =  subtractsTwoTimes(endDate, minus: now)
                     
+                    calculateRemainingTime(classEndTime: classEndTime, now: now)
                     
-                    switch remainingTime.counter {
-                    case let x where x > 10 :
-                        remainingTime.BkgColor = .green
-                        remainingTime.TextColor = .black
-                        remainingTime.text = String(remainingTime.counter)
-                        
-                    case 6...10:
-                        remainingTime.BkgColor = .orange
-                        remainingTime.TextColor = .black
-                        remainingTime.text = String(remainingTime.counter)
-                        if remainingTime.counter == 10  {
-                            playSound("A")
-                        }
-                    case 0...5:
-                        remainingTime.BkgColor = .red
-                        remainingTime.TextColor = .black
-                        remainingTime.text = String(remainingTime.counter)
-                        if remainingTime.counter == 5 {
-                            playSound("B")
-                        }
-                        if remainingTime.counter == 1 {
-                            playSound("C")
-                        }
-                    default:
-                        remainingTime.BkgColor = .white
-                        remainingTime.TextColor = .black
-                        remainingTime.text = String(remainingTime.counter)
-                        
-                    }
+                    isActualClass = true
                     
                 } else {
                     status = K.RowStatus.passed
-//                    remainingTimeBackgroundColor = .white
-//                    remainingTimeTextColor = .black
-//                    remainingTimeLabel = "BREAK"
+                    
+                    calculateRemainingTime(classEndTime: classEndTime, now: now)
                 }
             } else {
                 status = K.RowStatus.future
-//                remainingTimeBackgroundColor = .white
-//                remainingTimeTextColor = .black
-//                remainingTimeLabel = "BREAK"
             }
         } else {
             status = K.RowStatus.empty
-//            remainingTimeBackgroundColor = .white
-//            remainingTimeTextColor = .black
-//            remainingTimeLabel = "BREAK"
         }
-     
-//print(" rowFunc: row \(row.classTime) startString: \(startString) endString: \(endString) status \(status) minutes: \(RemainingClassMinutes) ")
-             
-        return status
-        
+       
+         let rowColor = K.ColorMatch[status]!
+ 
+            return rowColor
     }
+ 
+// Subtract two dates
     
     func subtractsTwoTimes(_ timeA: Date, minus timeB: Date) -> Int {
        
@@ -263,6 +255,8 @@ extension CustomCellVC {
         
         return minutes
     }
+
+// play sounds
     
     func playSound(_ sound: String) {
         
@@ -278,7 +272,65 @@ extension CustomCellVC {
             print("Sound file not found")
         }
     }
+ 
+// calculate Remaing  time for class and break if break it is negative
     
+    func calculateRemainingTime(classEndTime: Date, now: Date) {
+        
+        let remainingTime =  subtractsTwoTimes(classEndTime, minus: now)
+        
+print("classEndTime: \(classEndTime)")
+print("now: \(now)")
+print("remainingTime: \(remainingTime)")
+        
+        if remainingTime > 0 {
+            
+        // in the class time ( Remaining class time )
+            
+            label.counter = remainingTime
+           
+            switch label.counter {
+            case let x where x > 10 :
+                label.BkgColor = .green
+                label.TextColor = .black
+                label.text = String(label.counter)
+                
+            case 6...10:
+                label.BkgColor = .orange
+                label.TextColor = .black
+                label.text = String(label.counter)
+                if label.counter == 10  {
+                    playSound("A")
+                }
+            case 0...5:
+                label.BkgColor = .red
+                label.TextColor = .black
+                label.text = String(label.counter)
+                if label.counter == 5 {
+                    playSound("B")
+                }
+                if label.counter == 1 {
+                    playSound("C")
+                }
+            default:
+                label.BkgColor = .white
+                label.TextColor = .black
+                label.text = String(label.counter)
+            }
+        }
+        
+    // after the class ( Break time )
+        
+        else if noClass &&  {
+            
+            label.counter = remainingTime * -1
+            label.BkgColor = .white
+            label.TextColor = .black
+            
+        }
+        
+        
+    }
     
 }
 

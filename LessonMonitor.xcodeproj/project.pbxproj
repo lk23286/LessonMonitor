@@ -28,7 +28,7 @@
 		8519B1FB2AAB58AC00273A65 /* F.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8519B1F42AAB58AB00273A65 /* F.wav */; };
 		8542C1DB2AA2555F00B22C47 /* ClassRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8542C1DA2AA2555F00B22C47 /* ClassRow.swift */; };
 		8542C1DD2AA392C300B22C47 /* ColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8542C1DC2AA392C200B22C47 /* ColorScheme.swift */; };
-		85E9F7ED2AAB469900993CB5 /* RemainingTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E9F7EC2AAB469900993CB5 /* RemainingTime.swift */; };
+		85E9F7ED2AAB469900993CB5 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E9F7EC2AAB469900993CB5 /* Label.swift */; };
 		85E9F7F02AAB518E00993CB5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85E9F7EF2AAB518E00993CB5 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,7 +56,7 @@
 		8519B1F42AAB58AB00273A65 /* F.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = F.wav; sourceTree = "<group>"; };
 		8542C1DA2AA2555F00B22C47 /* ClassRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassRow.swift; sourceTree = "<group>"; };
 		8542C1DC2AA392C200B22C47 /* ColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorScheme.swift; sourceTree = "<group>"; };
-		85E9F7EC2AAB469900993CB5 /* RemainingTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemainingTime.swift; sourceTree = "<group>"; };
+		85E9F7EC2AAB469900993CB5 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		85E9F7EF2AAB518E00993CB5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -132,7 +132,7 @@
 				8503501A2AA24F0300B3EC30 /* K.swift */,
 				8542C1DA2AA2555F00B22C47 /* ClassRow.swift */,
 				8542C1DC2AA392C200B22C47 /* ColorScheme.swift */,
-				85E9F7EC2AAB469900993CB5 /* RemainingTime.swift */,
+				85E9F7EC2AAB469900993CB5 /* Label.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -240,7 +240,7 @@
 			files = (
 				85034FF22AA0FC4F00B3EC30 /* AppDelegate.swift in Sources */,
 				8503500E2AA23EA700B3EC30 /* CustomCellVC.swift in Sources */,
-				85E9F7ED2AAB469900993CB5 /* RemainingTime.swift in Sources */,
+				85E9F7ED2AAB469900993CB5 /* Label.swift in Sources */,
 				850350182AA242F600B3EC30 /* CustomCell.swift in Sources */,
 				8503500C2AA2277200B3EC30 /* EmbeddedTableVC.swift in Sources */,
 				850350082AA21BC900B3EC30 /* MainVC.swift in Sources */,

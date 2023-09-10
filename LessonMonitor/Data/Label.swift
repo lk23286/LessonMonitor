@@ -8,13 +8,13 @@
 import Foundation
 import UIKit
 
-struct RemainingTime {
+struct Label {
     
     var counter: Int = 0
     
-    var text: String = ""
+    var text: String = "-"
     
-    var TextColor: UIColor = .black
+    var TextColor: UIColor = .white
     
     var BkgColor: UIColor = .black
     
