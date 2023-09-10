@@ -27,14 +27,14 @@ struct K {
         ],
         // Monday
         [
-            ClassRow(classNumber: "1", className: "Monday", classTime: "08:00 - 08:45"),
-            ClassRow(classNumber: "2", className: "9.A. 1.cs", classTime: "08:55 - 09:30"),
-            ClassRow(classNumber: "3", className: "10.A. 1.cs", classTime: "10:15 - 08:45"),
-            ClassRow(classNumber: "4", className: "11.A. 1.cs", classTime: "08:55 - 09:30"),
-            ClassRow(classNumber: "5", className: "8.A. 1.cs", classTime: "08:00 - 08:45"),
-            ClassRow(classNumber: "6", className: "9.A. 1.cs", classTime: "08:55 - 09:30"),
-            ClassRow(classNumber: "7", className: "10.A. 1.cs", classTime: "10:15 - 08:45"),
-            ClassRow(classNumber: "8", className: "11.A. 1.cs", classTime: "08:55 - 09:30"),
+            ClassRow(classNumber: "1", className: "", classTime: ""),
+            ClassRow(classNumber: "2", className: "8.A. 1.cs", classTime: "08:55 - 09:40"),
+            ClassRow(classNumber: "3", className: "", classTime: ""),
+            ClassRow(classNumber: "4", className: "11.B. 2.cs", classTime: "10:45 - 11:30"),
+            ClassRow(classNumber: "5", className: "11.C 2.cs", classTime: "11:40 - 12:50"),
+            ClassRow(classNumber: "6", className: "11.A 2.cs", classTime: "12:45 - 13:30"),
+            ClassRow(classNumber: "7", className: "", classTime: ""),
+            ClassRow(classNumber: "8", className: "11.A. 1.cs", classTime: "14:55 - 09:30"),
             ClassRow(classNumber: "9", className: "11.A. 1.cs", classTime: "08:55 - 09:30")
         ],
         // Tuesday
@@ -103,7 +103,7 @@ struct K {
             ClassRow(classNumber: "3", className: "10.A. 1.cs", classTime: "15:40 - 16:25"),
             ClassRow(classNumber: "4", className: "11.A. 1.cs", classTime: "16:35 - 17:20"),
             ClassRow(classNumber: "5", className: "8.A. 1.cs", classTime: "17:30 - 18:15"),
-            ClassRow(classNumber: "6", className: "9.A. 1.cs", classTime: "18:25 - 18:56"),
+            ClassRow(classNumber: "6", className: "9.A. 1.cs", classTime: "19:00 - 19:56"),
             ClassRow(classNumber: "7", className: "10.A 1.cs", classTime: "20:10 - 20:55"),
             ClassRow(classNumber: "8", className: "", classTime: ""),
             ClassRow(classNumber: "9", className: "11.A. 1.cs", classTime: "21:15 - 22:00")
