@@ -25,6 +25,7 @@ class CustomCellVC: UIViewController {
     
     var audioPlayer: AVAudioPlayer?
     
+    var soundCounter = 0
     
     // Set parameters before the screen appears
     
@@ -64,6 +65,8 @@ class CustomCellVC: UIViewController {
 
 extension CustomCellVC {
     
+    
+    
     func startTimer() {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
@@ -79,9 +82,6 @@ extension CustomCellVC {
     @objc func updateTimer() {
         
         // Refresh up label( remaining time )
-        
-        // Refresh up label
-        
         let label = getUpLabel()
         
         remainingLabel.text = label.text
@@ -89,17 +89,16 @@ extension CustomCellVC {
         remainingLabel.textColor = label.textColor
         
         // Refresh bottom label ( date )
-        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM d. EEEE HH:mm:ss"
         let timeString = dateFormatter.string(from: Date())
         timeLabel.text = timeString
         
-        
-        
-        
         // Refresh the time table
         tableView.reloadData()
+        
+        //Play sound if it is time for it
+        checkWhenPlaySound()
     }
     
 }
@@ -144,7 +143,6 @@ extension CustomCellVC: UITableViewDataSource {
         cell.className.text = timeTableRowText.className
         cell.classTime.text = timeTableRowText.classTime
         
-        print("timeTableRowText: \(timeTableRowText.className)")
         
         // Set the Color of the row
         
@@ -199,14 +197,10 @@ extension CustomCellVC {
         startEndTime.end = String(rowText.classTime.suffix(5))
         
         if startEndTime.start.isEmpty || startEndTime.end.isEmpty {
-             startEndTimeOptional = nil
+            startEndTimeOptional = nil
         } else {
             startEndTimeOptional = startEndTime
         }
-        
-print("classTime.start: \(startEndTime.start)")
-print("rowText: \(rowText.classTime)")
-print(" prefix: \(String(rowText.classTime.prefix(5)))")
         
         return startEndTimeOptional
         
@@ -222,8 +216,6 @@ print(" prefix: \(String(rowText.classTime.prefix(5)))")
         let nowHHMM = dateFormatter.string(from: Date())
         
         if let time = dateFormatter.date(from: timeHHMM), let now = dateFormatter.date(from: nowHHMM) {
-            print("time: \(time)")
-            print("now: \(now)")
             
             let calendar = Calendar.current
             let components = calendar.dateComponents([.hour, .minute], from: time, to: now)
@@ -264,7 +256,6 @@ print(" prefix: \(String(rowText.classTime.prefix(5)))")
         return rowColor
         
     }
-  
     
     // getRemainingLabel() -> Label
     func getUpLabel() -> Label {
@@ -272,38 +263,34 @@ print(" prefix: \(String(rowText.classTime.prefix(5)))")
         var label = Label()
         
         if let remainingClassTime = calculateRemainingClassTime() {
-            print("..remainingClassTime: \(remainingClassTime)")
             if remainingClassTime > 10 {
                 label.counter = remainingClassTime
                 label.bkgColor = .green
                 label.textColor = .black
+                
+                
             }
             if remainingClassTime <= 10 && remainingClassTime > 5 {
                 label.counter = remainingClassTime
                 label.bkgColor = .orange
                 label.textColor = .black
+                
             }
             if remainingClassTime <= 5 && remainingClassTime > 0 {
                 label.counter = remainingClassTime
                 label.bkgColor = .red
                 label.textColor = .white
+                
             }
         } else {
             label.bkgColor = .white
             label.textColor = .black
             label.counter = calculateRemainingBreakTime() ?? 0
             
-            print("label.text: \(label.text)")
-            
         }
-        
-       
-        print("..label.counter: \(label.counter)")
-        print("..label.text: \(label.text)")
         
         return label
     }
-    
     
     func calculateRemainingClassTime() -> Int? {
         
@@ -324,19 +311,14 @@ print(" prefix: \(String(rowText.classTime.prefix(5)))")
     
     func calculateRemainingBreakTime() -> Int? {
         
-        
-        
         for rowNumber in 0...8 {
             if let timeString = getStartEndTimeFromDailyTimeTable(atRow: rowNumber) {
                 
                 let timeDiffFromStart = HowManyMinutesWeAreFromThisTime(timeHHMM: timeString.start)
-                let timeDiffFromEnd = HowManyMinutesWeAreFromThisTime(timeHHMM: timeString.end)
-                
-                print("rowNumber: \(rowNumber) diffFromStart: \(timeDiffFromStart) diffFromEnd: \(timeDiffFromEnd)")
                 
                 if timeDiffFromStart <= -1 {
                     
-                   return timeDiffFromStart * -1
+                    return timeDiffFromStart * -1
                 }
             }
         }
@@ -352,7 +334,7 @@ print(" prefix: \(String(rowText.classTime.prefix(5)))")
         
         return minutes
     }
-   
+    
     // 5. Play sounds
     func playSound(_ sound: String) {
         
@@ -369,6 +351,27 @@ print(" prefix: \(String(rowText.classTime.prefix(5)))")
         }
     }
     
+    func checkWhenPlaySound() {
+        if let remainingClassTime = calculateRemainingClassTime() {
+            if remainingClassTime == 10  {
+                if soundCounter % 60 == 0 {
+                    playSound("A")
+                }
+                soundCounter += 1
+            }
+            if remainingClassTime == 5 {
+                if soundCounter % 60 == 0 {
+                    playSound("B")
+                }
+                soundCounter += 1
+            }
+            if remainingClassTime == 1 {
+                if soundCounter % 60 == 0 {
+                    playSound("C")
+                }
+                soundCounter += 1
+            }
+        }
+    }
     
 }
-

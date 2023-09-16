@@ -93,9 +93,9 @@ struct K {
             ClassRow(classNumber: "4", className: "11.A. 1.cs", classTime: "10:35 - 11:20"),
             ClassRow(classNumber: "5", className: "8.A. 1.cs", classTime: "18:00 - 18:45"),
             ClassRow(classNumber: "6", className: "9.A. 1.cs", classTime: "18:59 - 19:22"),
-            ClassRow(classNumber: "7", className: "9.A. 1.cs", classTime: "20:44 - 20:45"),
-            ClassRow(classNumber: "8", className: "10.A 2.cs", classTime: "20:51 - 21:25"),
-            ClassRow(classNumber: "9", className: "11.A. 1.cs", classTime: "21:35 - 22:20")
+            ClassRow(classNumber: "7", className: "9.A. 1.cs", classTime: "22:45 - 23:28"),
+            ClassRow(classNumber: "8", className: "10.A 2.cs", classTime: ""),
+            ClassRow(classNumber: "9", className: "11.A. 1.cs", classTime: "23:46 - 23:57")
         ],
         // Sunday
         [
