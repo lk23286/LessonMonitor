@@ -372,6 +372,7 @@ extension CustomCellVC {
                 soundCounter += 1
             }
         }
+        print("soundCounter: \(soundCounter)")
     }
     
 }

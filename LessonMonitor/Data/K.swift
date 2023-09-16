@@ -99,7 +99,7 @@ struct K {
         ],
         // Sunday
         [
-            ClassRow(classNumber: "1", className: "Sunday", classTime: "14:00 - 14:45"),
+            ClassRow(classNumber: "1", className: "Sunday", classTime: "00:01 - 00:12"),
             ClassRow(classNumber: "2", className: "9.A. 1.cs", classTime: "14:55 - 15:30"),
             ClassRow(classNumber: "3", className: "10.A. 1.cs", classTime: "15:40 - 16:25"),
             ClassRow(classNumber: "4", className: "11.A. 1.cs", classTime: "16:35 - 17:20"),
