@@ -145,6 +145,7 @@ extension CustomCellVC: UITableViewDataSource {
         cell.className.text = timeTableRowText.className
         cell.classTime.text = timeTableRowText.classTime
         
+        print("timeTableRowText: \(timeTableRowText.className)")
         
         // Set the Color of the row
         
@@ -186,16 +187,22 @@ extension CustomCellVC {
     // 2 getTimeStringsFromDailyTimeTable( atRow: ) -> ClassTime
     func getTimeStringsFromDailyTimeTable( atRow rowNumber: Int ) -> ClassTime? {
         
-        var classTime: ClassTime?
-        
+        var classTime = ClassTime(start: "", end: "")
         // Select the row text
         
         let rowText =  timeTable[getWeekNumberForToday()][rowNumber]
         
         // cut the start time and end time of the class from ClassTime field. Example "12:00 - 12:45" -> "12:00" and "12:45"
         
-        classTime?.start = String(rowText.classTime.prefix(5))
-        classTime?.end = String(rowText.classTime.suffix(5))
+        classTime.start = String(rowText.classTime.prefix(5))
+        classTime.end = String(rowText.classTime.suffix(5))
+        
+        
+        print("classTime?.start: \(classTime.start)")
+        print("rowText: \(rowText.classTime)")
+        print(" prefix: \(String(rowText.classTime.prefix(5)))")
+       
+        
         
         return classTime
         
@@ -226,7 +233,7 @@ extension CustomCellVC {
     // 4. Calculate the Colors of the row
     func getDailyTimeTableColor(at rowNumber: Int) ->  ColorScheme {
         
-        var status = ""
+        var status = K.RowStatus.empty
         
         if let timeString = getTimeStringsFromDailyTimeTable(atRow: rowNumber) {
             let timeDiffFromStart = timeDiffCalculatorFromNow(timeHHMM: timeString.start)
