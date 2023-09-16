@@ -188,6 +188,8 @@ extension CustomCellVC {
     func getTimeStringsFromDailyTimeTable( atRow rowNumber: Int ) -> ClassTime? {
         
         var classTime = ClassTime(start: "", end: "")
+        
+        var classTimeOptional: ClassTime?
         // Select the row text
         
         let rowText =  timeTable[getWeekNumberForToday()][rowNumber]
@@ -197,14 +199,17 @@ extension CustomCellVC {
         classTime.start = String(rowText.classTime.prefix(5))
         classTime.end = String(rowText.classTime.suffix(5))
         
+        if classTime.start.isEmpty || classTime.end.isEmpty {
+             classTimeOptional = nil
+        } else {
+            classTimeOptional = classTime
+        }
         
-        print("classTime?.start: \(classTime.start)")
-        print("rowText: \(rowText.classTime)")
-        print(" prefix: \(String(rowText.classTime.prefix(5)))")
-       
+print("classTime.start: \(classTime.start)")
+print("rowText: \(rowText.classTime)")
+print(" prefix: \(String(rowText.classTime.prefix(5)))")
         
-        
-        return classTime
+        return classTimeOptional
         
     }
     // 3. timeDiffCalculatorFromNow
