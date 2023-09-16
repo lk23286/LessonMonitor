@@ -25,9 +25,6 @@ class CustomCellVC: UIViewController {
     
     var audioPlayer: AVAudioPlayer?
     
-//    var storedActualClassEndTime: Date?
-//    var isActualClass: Bool = false
-    
     
     // Set parameters before the screen appears
     
@@ -83,11 +80,13 @@ extension CustomCellVC {
         
         // Refresh up label( remaining time )
         
-        // getRemainingLabel() -> Label
+        // Refresh up label
         
-        remainingLabel.text = getRemainingLabel().text
-        remainingLabel.backgroundColor = getRemainingLabel().bkgColor
-        remainingLabel.textColor = getRemainingLabel().textColor
+        let label = getUpLabel()
+        
+        remainingLabel.text = label.text
+        remainingLabel.backgroundColor = label.bkgColor
+        remainingLabel.textColor = label.textColor
         
         // Refresh bottom label ( date )
         
@@ -96,7 +95,7 @@ extension CustomCellVC {
         let timeString = dateFormatter.string(from: Date())
         timeLabel.text = timeString
         
-        // Refresh up label
+        
         
         
         // Refresh the time table
@@ -213,9 +212,9 @@ print(" prefix: \(String(rowText.classTime.prefix(5)))")
         
     }
     // 3. timeDiffCalculatorFromNow
-    func timeDiffCalculatorFromNow( timeHHMM: String ) -> HourMinTime {
+    func timeDiffCalculatorFromNow( timeHHMM: String ) -> Int {
         
-        var classTime = HourMinTime()
+        var classTime: Int = 0
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
@@ -228,8 +227,9 @@ print(" prefix: \(String(rowText.classTime.prefix(5)))")
             
             let calendar = Calendar.current
             let components = calendar.dateComponents([.hour, .minute], from: time, to: now)
-            classTime.hour = components.hour ?? 0
-            classTime.minute = components.minute ?? 0
+            let hour = components.hour ?? 0
+            let minute = components.minute ?? 0
+            classTime = hour * 60 + minute
         }
         return classTime
     }
@@ -244,15 +244,15 @@ print(" prefix: \(String(rowText.classTime.prefix(5)))")
             let timeDiffFromStart = timeDiffCalculatorFromNow(timeHHMM: timeString.start)
             let timeDiffFromEnd = timeDiffCalculatorFromNow(timeHHMM: timeString.end)
             
-            if timeDiffFromStart.totalMinutes > 0 && timeDiffFromEnd.totalMinutes < 0 {
+            if timeDiffFromStart > 0 && timeDiffFromEnd < 0 {
                 status = K.RowStatus.actual
             }
             
-            if timeDiffFromStart.totalMinutes > 0 && timeDiffFromEnd.totalMinutes > 0 {
+            if timeDiffFromStart > 0 && timeDiffFromEnd > 0 {
                 status = K.RowStatus.passed
             }
             
-            if timeDiffFromStart.totalMinutes < 0  {
+            if timeDiffFromStart < 0  {
                 status = K.RowStatus.future
             }
         } else {
@@ -346,23 +346,24 @@ print(" prefix: \(String(rowText.classTime.prefix(5)))")
     
     
     // getRemainingLabel() -> Label
-    func getRemainingLabel() -> Label {
+    func getUpLabel() -> Label {
         
         var label = Label()
         
         if let remainingClassTime = calculateRemainingClassTime() {
-            if remainingClassTime.totalMinutes > 10 {
-                label.counter = remainingClassTime.totalMinutes
+            print("..remainingClassTime: \(remainingClassTime)")
+            if remainingClassTime > 10 {
+                label.counter = remainingClassTime
                 label.bkgColor = .green
                 label.textColor = .black
             }
-            if remainingClassTime.totalMinutes <= 10 && remainingClassTime.totalMinutes > 5 {
-                label.counter = remainingClassTime.totalMinutes
+            if remainingClassTime <= 10 && remainingClassTime > 5 {
+                label.counter = remainingClassTime
                 label.bkgColor = .orange
                 label.textColor = .black
             }
-            if remainingClassTime.totalMinutes <= 5 && remainingClassTime.totalMinutes > 0 {
-                label.counter = remainingClassTime.totalMinutes
+            if remainingClassTime <= 5 && remainingClassTime > 0 {
+                label.counter = remainingClassTime
                 label.bkgColor = .red
                 label.textColor = .white
             }
@@ -372,11 +373,16 @@ print(" prefix: \(String(rowText.classTime.prefix(5)))")
             label.textColor = .black
         }
         
+       
+        print("..label.counter: \(label.counter)")
+        print("..label.text: \(label.text)")
+        
+        
         return label
     }
     
     
-    func calculateRemainingClassTime() -> HourMinTime? {
+    func calculateRemainingClassTime() -> Int? {
         
         for rowNumber in 0...8 {
             if let timeString = getTimeStringsFromDailyTimeTable(atRow: rowNumber) {
@@ -384,8 +390,9 @@ print(" prefix: \(String(rowText.classTime.prefix(5)))")
                 let timeDiffFromStart = timeDiffCalculatorFromNow(timeHHMM: timeString.start)
                 let timeDiffFromEnd = timeDiffCalculatorFromNow(timeHHMM: timeString.end)
                 
-                if timeDiffFromStart.totalMinutes > 0 && timeDiffFromEnd.totalMinutes < 0 {
-                    return timeDiffFromStart
+                if timeDiffFromStart > 0 && timeDiffFromEnd < 0 {
+                    
+                    return timeDiffFromEnd * -1
                 }
             }
         }

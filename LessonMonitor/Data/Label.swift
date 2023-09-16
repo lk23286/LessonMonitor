@@ -20,8 +20,7 @@ struct Label {
              var min = 0
              var hour = 0
              var day = 0
-             
-             for counter in 1...(60*24*7) {
+                 
                  day = Int(counter / (24*60))
                  min = counter % (24*60)
                  hour = Int(min / 60)
@@ -36,7 +35,7 @@ struct Label {
                  } else {
                      resultString = "\(day) day \(hour) hours \(min) min"
                  }
-             }
+            
              return resultString
         }
         set {
