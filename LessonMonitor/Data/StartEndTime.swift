@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ClassTime {
+struct StartEndTime {
     var start: String
     var end: String
     

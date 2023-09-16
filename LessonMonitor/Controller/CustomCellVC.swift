@@ -183,36 +183,36 @@ extension CustomCellVC {
         }
     }
     
-    // 2 getTimeStringsFromDailyTimeTable( atRow: ) -> ClassTime
-    func getTimeStringsFromDailyTimeTable( atRow rowNumber: Int ) -> ClassTime? {
+    // 2
+    func getStartEndTimeFromDailyTimeTable( atRow rowNumber: Int ) -> StartEndTime? {
         
-        var classTime = ClassTime(start: "", end: "")
+        var startEndTime = StartEndTime(start: "", end: "")
         
-        var classTimeOptional: ClassTime?
+        var startEndTimeOptional: StartEndTime?
         // Select the row text
         
         let rowText =  timeTable[getWeekNumberForToday()][rowNumber]
         
         // cut the start time and end time of the class from ClassTime field. Example "12:00 - 12:45" -> "12:00" and "12:45"
         
-        classTime.start = String(rowText.classTime.prefix(5))
-        classTime.end = String(rowText.classTime.suffix(5))
+        startEndTime.start = String(rowText.classTime.prefix(5))
+        startEndTime.end = String(rowText.classTime.suffix(5))
         
-        if classTime.start.isEmpty || classTime.end.isEmpty {
-             classTimeOptional = nil
+        if startEndTime.start.isEmpty || startEndTime.end.isEmpty {
+             startEndTimeOptional = nil
         } else {
-            classTimeOptional = classTime
+            startEndTimeOptional = startEndTime
         }
         
-print("classTime.start: \(classTime.start)")
+print("classTime.start: \(startEndTime.start)")
 print("rowText: \(rowText.classTime)")
 print(" prefix: \(String(rowText.classTime.prefix(5)))")
         
-        return classTimeOptional
+        return startEndTimeOptional
         
     }
     // 3. timeDiffCalculatorFromNow
-    func timeDiffCalculatorFromNow( timeHHMM: String ) -> Int {
+    func HowManyMinutesWeAreFromThisTime( timeHHMM: String ) -> Int {
         
         var classTime: Int = 0
         
@@ -240,15 +240,15 @@ print(" prefix: \(String(rowText.classTime.prefix(5)))")
         
         var status = K.RowStatus.empty
         
-        if let timeString = getTimeStringsFromDailyTimeTable(atRow: rowNumber) {
-            let timeDiffFromStart = timeDiffCalculatorFromNow(timeHHMM: timeString.start)
-            let timeDiffFromEnd = timeDiffCalculatorFromNow(timeHHMM: timeString.end)
+        if let timeString = getStartEndTimeFromDailyTimeTable(atRow: rowNumber) {
+            let timeDiffFromStart = HowManyMinutesWeAreFromThisTime(timeHHMM: timeString.start)
+            let timeDiffFromEnd = HowManyMinutesWeAreFromThisTime(timeHHMM: timeString.end)
             
-            if timeDiffFromStart > 0 && timeDiffFromEnd < 0 {
+            if timeDiffFromStart > -1 && timeDiffFromEnd < 0 {
                 status = K.RowStatus.actual
             }
             
-            if timeDiffFromStart > 0 && timeDiffFromEnd > 0 {
+            if timeDiffFromStart > 0 && timeDiffFromEnd > -1 {
                 status = K.RowStatus.passed
             }
             
@@ -265,85 +265,6 @@ print(" prefix: \(String(rowText.classTime.prefix(5)))")
         
     }
   
-        
-//        // Select the row text
-//
-//        let rowText =  timeTable[getWeekNumberForToday()][rowNumber]
-//
-//        var status = ""
-//
-//        // cut the start time and end time of the class from ClassTime field. Example "12:00 - 12:45" -> "12:00" and "12:45"
-//
-//        let classStartTimeStr = getTimeStringsFromDailyTimeTable(atRow: rowNumber)
-//        let classEndTimeStr = String(rowText.classTime.suffix(5))
-//
-//
-//        // ClassStartTime and ClassEndTime  were created in Date format from String format to be compatible with the now()
-//
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "HH:mm"
-//
-//        // correct the now to have a date part identitacal to the startDate and stopDate (2000.01.01...)
-//
-//        let rawNowString = dateFormatter.string(from: Date())
-//        let now = dateFormatter.date(from: rawNowString) ?? Date()
-//
-//        // startTimeFromDailyTimeTable( atRow: ) -> ClassTime
-//
-//
-//        if let classStartTime = dateFormatter.date(from: classStartTimeStr), let classEndTime = dateFormatter.date(from: classEndTimeStr)  {
-//
-//            // Actual class
-//
-//            if classStartTime <= now {
-//                if now < classEndTime {
-//                    status =  K.RowStatus.actual
-//
-//                    calculateRemainingTime(classEndTime: classEndTime, now: now)
-//                } else {
-//                    status = K.RowStatus.passed
-//                }
-//            } else {
-//                status = K.RowStatus.future
-//            }
-//
-//        } else {
-//            status = K.RowStatus.empty
-//        }
-//
-//        let rowColor = K.ColorMatch[status]!
-        
-//        return rowColor
-        
-//    }
-    
-    // 4.Subtract two dates
-    func subtractsTwoTimes(_ timeA: Date, minus timeB: Date) -> Int {
-        
-        let timeDifference = timeA.timeIntervalSince(timeB)
-        let minutes = Int((timeDifference.truncatingRemainder(dividingBy: 3600)) / 60)
-        
-        return minutes
-    }
-    
-    // 5. Play sounds
-    func playSound(_ sound: String) {
-        
-        if let soundURL = Bundle.main.url(forResource: sound, withExtension: "wav") {
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
-                audioPlayer?.play()
-            }
-            catch {
-                print("error playing sound: \(error.localizedDescription)")
-            }
-        } else {
-            print("Sound file not found")
-        }
-    }
-    
-    // 6. calculate Remaing  time for class and break if break it is negative
-    
     
     // getRemainingLabel() -> Label
     func getUpLabel() -> Label {
@@ -368,15 +289,17 @@ print(" prefix: \(String(rowText.classTime.prefix(5)))")
                 label.textColor = .white
             }
         } else {
-            label.text = "Break"
             label.bkgColor = .white
             label.textColor = .black
+            label.counter = calculateRemainingBreakTime() ?? 0
+            
+            print("label.text: \(label.text)")
+            
         }
         
        
         print("..label.counter: \(label.counter)")
         print("..label.text: \(label.text)")
-        
         
         return label
     }
@@ -385,12 +308,12 @@ print(" prefix: \(String(rowText.classTime.prefix(5)))")
     func calculateRemainingClassTime() -> Int? {
         
         for rowNumber in 0...8 {
-            if let timeString = getTimeStringsFromDailyTimeTable(atRow: rowNumber) {
+            if let timeString = getStartEndTimeFromDailyTimeTable(atRow: rowNumber) {
                 
-                let timeDiffFromStart = timeDiffCalculatorFromNow(timeHHMM: timeString.start)
-                let timeDiffFromEnd = timeDiffCalculatorFromNow(timeHHMM: timeString.end)
+                let timeDiffFromStart = HowManyMinutesWeAreFromThisTime(timeHHMM: timeString.start)
+                let timeDiffFromEnd = HowManyMinutesWeAreFromThisTime(timeHHMM: timeString.end)
                 
-                if timeDiffFromStart > 0 && timeDiffFromEnd < 0 {
+                if timeDiffFromStart > -1  && timeDiffFromEnd < 0 {
                     
                     return timeDiffFromEnd * -1
                 }
@@ -399,48 +322,53 @@ print(" prefix: \(String(rowText.classTime.prefix(5)))")
         return nil
     }
     
+    func calculateRemainingBreakTime() -> Int? {
+        
+        
+        
+        for rowNumber in 0...8 {
+            if let timeString = getStartEndTimeFromDailyTimeTable(atRow: rowNumber) {
+                
+                let timeDiffFromStart = HowManyMinutesWeAreFromThisTime(timeHHMM: timeString.start)
+                let timeDiffFromEnd = HowManyMinutesWeAreFromThisTime(timeHHMM: timeString.end)
+                
+                print("rowNumber: \(rowNumber) diffFromStart: \(timeDiffFromStart) diffFromEnd: \(timeDiffFromEnd)")
+                
+                if timeDiffFromStart <= -1 {
+                    
+                   return timeDiffFromStart * -1
+                }
+            }
+        }
+        return nil
+    }
     
-//    func calculateRemainingTime(classEndTime: Date, now: Date) {
-//
-//        let remainingTime =  subtractsTwoTimes(classEndTime, minus: now)
-//
-//        if remainingTime > 0 {
-//
-//            // in the class time ( Remaining class time )
-//
-//            label.counter = remainingTime
-//
-//            switch label.counter {
-//            case let x where x > 10 :
-//                label.BkgColor = .green
-//                label.TextColor = .black
-//                label.text = String(label.counter)
-//
-//            case 6...10:
-//                label.BkgColor = .orange
-//                label.TextColor = .black
-//                label.text = String(label.counter)
-//                if label.counter == 10  {
-//                    playSound("A")
-//                }
-//            case 0...5:
-//                label.BkgColor = .red
-//                label.TextColor = .black
-//                label.text = String(label.counter)
-//                if label.counter == 5 {
-//                    playSound("B")
-//                }
-//                if label.counter == 1 {
-//                    playSound("C")
-//                }
-//            default:
-//                label.BkgColor = .white
-//                label.TextColor = .black
-//                label.text = String(label.counter)
-//            }
-//        }
-//    }
     
-
+    // 4.Subtract two dates
+    func subtractsTwoTimes(_ timeA: Date, minus timeB: Date) -> Int {
+        
+        let timeDifference = timeA.timeIntervalSince(timeB)
+        let minutes = Int((timeDifference.truncatingRemainder(dividingBy: 3600)) / 60)
+        
+        return minutes
+    }
+   
+    // 5. Play sounds
+    func playSound(_ sound: String) {
+        
+        if let soundURL = Bundle.main.url(forResource: sound, withExtension: "wav") {
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+                audioPlayer?.play()
+            }
+            catch {
+                print("error playing sound: \(error.localizedDescription)")
+            }
+        } else {
+            print("Sound file not found")
+        }
+    }
+    
+    
 }
 

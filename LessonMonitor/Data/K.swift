@@ -91,11 +91,11 @@ struct K {
             ClassRow(classNumber: "2", className: "9.A. 1.cs", classTime: "08:55 - 09:30"),
             ClassRow(classNumber: "3", className: "10.A. 1.cs", classTime: "09:40 - 10:25"),
             ClassRow(classNumber: "4", className: "11.A. 1.cs", classTime: "10:35 - 11:20"),
-            ClassRow(classNumber: "5", className: "8.A. 1.cs", classTime: "12:00 - 12:45"),
-            ClassRow(classNumber: "6", className: "9.A. 1.cs", classTime: "12:50 - 13:30"),
-            ClassRow(classNumber: "7", className: "9.A. 1.cs", classTime: "15:00 - 15:45"),
-            ClassRow(classNumber: "8", className: "10.A 2.cs", classTime: "15:47 - 16:10"),
-            ClassRow(classNumber: "9", className: "11.A. 1.cs", classTime: "21:15 - 22:00")
+            ClassRow(classNumber: "5", className: "8.A. 1.cs", classTime: "18:00 - 18:45"),
+            ClassRow(classNumber: "6", className: "9.A. 1.cs", classTime: "18:59 - 19:22"),
+            ClassRow(classNumber: "7", className: "9.A. 1.cs", classTime: "20:44 - 20:45"),
+            ClassRow(classNumber: "8", className: "10.A 2.cs", classTime: "20:51 - 21:25"),
+            ClassRow(classNumber: "9", className: "11.A. 1.cs", classTime: "21:35 - 22:20")
         ],
         // Sunday
         [
@@ -105,7 +105,7 @@ struct K {
             ClassRow(classNumber: "4", className: "11.A. 1.cs", classTime: "16:35 - 17:20"),
             ClassRow(classNumber: "5", className: "8.A. 1.cs", classTime: "17:30 - 18:15"),
             ClassRow(classNumber: "6", className: "9.A. 1.cs", classTime: "19:00 - 19:56"),
-            ClassRow(classNumber: "7", className: "10.A 1.cs", classTime: "20:10 - 20:55"),
+            ClassRow(classNumber: "7", className: "10.A 1.cs", classTime: "20:15 - 21:00"),
             ClassRow(classNumber: "8", className: "", classTime: ""),
             ClassRow(classNumber: "9", className: "11.A. 1.cs", classTime: "21:15 - 22:00")
         ]

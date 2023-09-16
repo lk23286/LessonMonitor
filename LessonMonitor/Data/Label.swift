@@ -17,24 +17,30 @@ struct Label {
         get {
              var resultString = ""
              
-             var min = 0
-             var hour = 0
-             var day = 0
-                 
-                 day = Int(counter / (24*60))
-                 min = counter % (24*60)
-                 hour = Int(min / 60)
-                 min = min % 60
-                 
-                 if day == 0 {
-                     if hour == 0 {
-                         resultString = "\(min)"
-                     } else {
-                         resultString = "\(hour):\(min)"
-                     }
-                 } else {
-                     resultString = "\(day) day \(hour) hours \(min) min"
-                 }
+            if counter != 0 {
+                var min = 0
+                var hour = 0
+                var day = 0
+                    
+                    day = Int(counter / (24*60))
+                    min = counter % (24*60)
+                    hour = Int(min / 60)
+                    min = min % 60
+                    
+                    if day == 0 {
+                        if hour == 0 {
+                            resultString = "\(min)"
+                        } else {
+                            resultString = "\(hour):\(min)"
+                        }
+                    } else {
+                        resultString = "\(day) day \(hour) hours \(min) min"
+                    }
+            } else {
+                resultString = "Break"
+            }
+            
+             
             
              return resultString
         }
