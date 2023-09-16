@@ -12,11 +12,42 @@ struct Label {
     
     var counter: Int = 0
     
-    var text: String = "-"
+    var text: String {
+        
+        get {
+             var resultString = ""
+             
+             var min = 0
+             var hour = 0
+             var day = 0
+             
+             for counter in 1...(60*24*7) {
+                 day = Int(counter / (24*60))
+                 min = counter % (24*60)
+                 hour = Int(min / 60)
+                 min = min % 60
+                 
+                 if day == 0 {
+                     if hour == 0 {
+                         resultString = "\(min)"
+                     } else {
+                         resultString = "\(hour):\(min)"
+                     }
+                 } else {
+                     resultString = "\(day) day \(hour) hours \(min) min"
+                 }
+             }
+             return resultString
+        }
+        set {
+            
+        }
+ 
+    }
     
-    var TextColor: UIColor = .white
+    var textColor: UIColor = .white
     
-    var BkgColor: UIColor = .black
+    var bkgColor: UIColor = .black
     
 }
 
